@@ -1,0 +1,8 @@
+todo-filter {
+
+    > fieldset {
+        border: none;
+        margin: 0;
+        padding: 0.5rem 0 1rem;
+    }
+}

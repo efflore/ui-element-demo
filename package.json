@@ -1,0 +1,23 @@
+{
+  "name": "ui-element-demo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@efflore/ui-element": "^0.8.0"
+  },
+  "devDependencies": {
+    "jsdom": "^24.1.1",
+    "vite": "^5.4.1",
+    "vitest": "^2.0.5"
+  }
+}

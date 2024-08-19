@@ -1,0 +1,14 @@
+todo-list {
+
+    &[filter="completed"] {
+        li:not(:has(.completed)) {
+            display: none;
+        }
+    }
+
+    &[filter="active"] {
+        li:has(.completed) {
+            display: none;
+        }
+    }
+}

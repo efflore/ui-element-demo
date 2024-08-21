@@ -3,55 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Todo List</title>
+    <title>UI Element Demo</title>
 </head>
 <body>
-    <todo-app>
-        <todo-form>
-            <form action="#">
-                <input-field>
-                    <label for="add-todo">What needs to be done?</label>
-                    <input id="add-todo" type="text" value="" required />
-                </input-field>
-                <input-button class="submit">
-                    <button type="submit" disabled>Add Todo</button>
-                </input-button>
-            </form>
-        </todo-form>
-        <todo-list filter="all">
-            <ul>
-            </ul>
-            <template id="todo-list-item">
-                <li>
-                    <todo-item>
-                        <label>
-                            <input type="checkbox" />
-                            <span></span>
-                        </label>
-                        <button type="button">Delete</button>
-                    </todo-item>
-                </li>
-            </template>
-        </todo-list>
-        <todo-count>
-            <p class="all-done">Well done, all done!</p>
-            <p class="remaining"><span></span> tasks left</p>
-        </todo-count>
-        <todo-filter>
-            <fieldset>
-                <legend>Filter</legend>
-                <input type="radio" id="filter-all" name="filter" value="all" checked />
-                <label for="filter-all">All</label>
-                <input type="radio" id="filter-active" name="filter" value="active" />
-                <label for="filter-active">Active</label>
-                <input type="radio" id="filter-completed" name="filter" value="completed" />
-                <label for="filter-completed">Completed</label>
-            </fieldset>
-        </todo-filter>
-        <input-button class="clear-completed">
-            <button type="button">Clear Completed</button>
-        </input-button>
-    </todo-app>
+    <page-router outlet="main" route="/">
+        <header>
+            <h1>UI Element Demo</h1>
+            <main-nav>
+                <nav>
+                    <ul>
+                        <li><a href="/pages/todo.html" aria-current="page">Todo List</a></li>
+                        <li><a href="/pages/counter.html">Counter</a></li>
+                        <li><a href="/pages/modal.html">Modal</a></li>
+                        <li><a href="/pages/tabs.html">Tabs</a></li>
+                        <li><a href="/pages/not-found.html">Not Found</a></li>
+                    </ul>
+                </nav>
+            </main-nav>
+        </header>
+        <main>
+            <lazy-load src="/pages/todo.html">
+                <p class="loading" role="status">Loading...</p>
+                <p class="error" role="alert" aria-live="polite"></p>
+            </lazy-load>
+        </main>
+        <footer>
+            <p>2024, Created by <a href="https://github.com/estherbrunner">@estherbrunner</a></p>
+        </footer>
+    </page-router>
     <script type="module" src="/src/main.js"></script>
 </body>
 </html>

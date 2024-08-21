@@ -1,0 +1,47 @@
+<h1>Todo List</h1>
+<todo-app>
+    <todo-form>
+        <form action="#">
+            <input-field>
+                <label for="add-todo">What needs to be done?</label>
+                <input id="add-todo" type="text" value="" required />
+            </input-field>
+            <input-button class="submit">
+                <button type="submit" disabled>Add Todo</button>
+            </input-button>
+        </form>
+    </todo-form>
+    <todo-list filter="all">
+        <ul>
+        </ul>
+        <template id="todo-list-item">
+            <li>
+                <todo-item>
+                    <label>
+                        <input type="checkbox" />
+                        <span></span>
+                    </label>
+                    <button type="button">Delete</button>
+                </todo-item>
+            </li>
+        </template>
+    </todo-list>
+    <todo-count>
+        <p class="all-done">Well done, all done!</p>
+        <p class="remaining"><span></span> tasks left</p>
+    </todo-count>
+    <todo-filter>
+        <fieldset>
+            <legend>Filter</legend>
+            <input type="radio" id="filter-all" name="filter" value="all" checked />
+            <label for="filter-all">All</label>
+            <input type="radio" id="filter-active" name="filter" value="active" />
+            <label for="filter-active">Active</label>
+            <input type="radio" id="filter-completed" name="filter" value="completed" />
+            <label for="filter-completed">Completed</label>
+        </fieldset>
+    </todo-filter>
+    <input-button class="clear-completed">
+        <button type="button">Clear Completed</button>
+    </input-button>
+</todo-app>

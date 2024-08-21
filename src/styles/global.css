@@ -1,3 +1,7 @@
 .hidden {
     display: none;
 }
+
+a[aria-current="page"] {
+    color: red;
+}

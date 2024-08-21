@@ -1,5 +1,8 @@
 import './styles/global.css';
 
+import './components/page-router.js';
+import './components/main-nav.js';
+import './components/lazy-load.js';
 import './components/todo-app.js';
 import './components/todo-form.js';
 import './components/input-field.js';

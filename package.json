@@ -13,11 +13,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@efflore/ui-element": "^0.8.0"
+    "@efflore/ui-element": "^0.8.1"
   },
   "devDependencies": {
     "jsdom": "^24.1.1",
-    "vite": "^5.4.1",
+    "vite": "^5.4.2",
     "vitest": "^2.0.5"
   }
 }

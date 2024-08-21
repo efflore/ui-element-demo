@@ -9,9 +9,9 @@ class TodoCount extends UIElement {
         this.set('has-active', () => this.get('active') !== 0)
 
         // effects
-        this.first('span').map(setText('active'), this)
-        this.first('.all-done').map(toggleClass('hidden', 'has-active'), this)
-        this.first('.remaining').map(toggleClass('hidden', 'zero-active'), this)
+        this.first('span').map(setText('active'))
+        this.first('.all-done').map(toggleClass('hidden', 'has-active'))
+        this.first('.remaining').map(toggleClass('hidden', 'zero-active'))
     }
 }
 

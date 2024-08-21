@@ -1,38 +1,30 @@
-import { UIElement, pass, effect } from '@efflore/ui-element'
+import { UIElement, pass, on } from '@efflore/ui-element'
 
 class TodoForm extends UIElement {
 
     connectedCallback() {
-        this.set('valid', () => this.all('input-field').every(el => el.get('valid')))
-        this.all('input-field')
-            .map(el => {
-                el.addEventListener('keypress', e => {
-                    if (e.key === 'Enter') {
-                        el.blur()
-                        this.submitForm()
-                    }
-                })
-                return el
-            })
+        this.set('valid', () => this.all('input-field').every(ui => ui.target.get('valid')))
+
+        // prevent form submission when Enter is pressed
+        this.first('form').map(on('submit', e => e.preventDefault()))
+
+        // coordinate .submit button to be disabled until all fields are valid
         this.first('.submit')
-            .map(el => {
-                el.addEventListener('click', this.submitForm)
-                return el
-            })
-            .map(pass(this, {
-                disabled: () => !this.get('valid')
-            }))
+            .map(on('click', () => this.submitForm()))
+            .map(pass({ disabled: () => !this.get('valid') }))
     }
 
     submitForm = () => {
-        setTimeout(() => { // push to end of call stack to allow child elements to update
+        setTimeout(() => { // push to end of call stack to allow children to update
             if (!this.get('valid')) return
-            const task = this.querySelector('input-field').get('value')
+            const input = this.querySelector('input-field')
+            const task = input.get('value')
             this.dispatchEvent(new CustomEvent('add-task', {
                 bubbles: true,
                 detail: task
             }))
-            this.querySelector('input-field').clearField()
+            input.clearField()
+            input.focus()
         })
     }
 }

@@ -1,4 +1,4 @@
-import { UIElement, setAttribute } from '@efflore/ui-element'
+import { UIElement, on, setAttribute } from '@efflore/ui-element'
 
 import './todo-list.css'
 
@@ -6,50 +6,49 @@ class TodoList extends UIElement {
 
     connectedCallback() {
 
-        // set filter state
+        // set defaults
         this.set('filter', 'all')
-        this.self.map(setAttribute('filter'), this)
+        this.updateList()
 
-        // event listener
-        this.addEventListener('click', e => {
-            if (e.target.localName === 'input') this.updateCount()
-            else if (e.target.localName === 'button') this.removeItem(e.target)
+        // update count on each change
+        this.set('count', () => {
+            const tasks = this.get('tasks').map(({ target }) => target.signal('completed'))
+            const completed = tasks.filter(signal => signal()).length
+            const total = tasks.length
+            return { active: total - completed, completed, total }
         })
+
+        // event listener and attribute on own element
+        this.self
+            .map(on('click', e => {
+                if (e.target.localName === 'button') this.removeItem(e.target)
+            }))
+            .map(setAttribute('filter'))
+    }
+
+    updateList() {
+        this.set('tasks', this.all('todo-item'))
     }
 
     addItem = task => {
         const template = this.querySelector('template').content.cloneNode(true)
         template.querySelector('span').textContent = task
         this.querySelector('ul').appendChild(template)
-        this.updateCount()
-        return true
+        this.updateList()
     }
 
     removeItem = element => {
         element.closest('li').remove()
-        this.updateCount()
-        return true
-    }
-
-    updateCount = () => {
-        setTimeout(() => { // push to end of call stack to allow child elements to update
-            const items = this.all('todo-item')
-            const completed = items.filter(el => el.get('completed')).length
-            const count = {
-                active: items.length - completed,
-                completed,
-                total: items.length
-            }
-            this.dispatchEvent(new CustomEvent('update-count', { bubbles: true, detail: count }))
-        })
+        this.updateList()
     }
 
     clearCompleted = () => {
-        this.all('todo-item').filter(el => el.get('completed')).forEach(el => el.parentElement.remove())
-        this.updateCount()
-        return true
+        this.all('todo-item')
+            .filter(({ target }) => target.get('completed'))
+            .forEach(({ target }) => target.parentElement.remove())
+        this.updateList()
     }
 
 }
 
-TodoList.define("todo-list")
+TodoList.define('todo-list')
